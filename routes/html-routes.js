@@ -1,7 +1,7 @@
 const Router = require("express").Router();
 
-app.get("/", (req, res) => {
+Router.get("/", (req, res) => {
     res.send(index.html);
   });
 
-  module.exports = html-routes
+module.exports = Router;
