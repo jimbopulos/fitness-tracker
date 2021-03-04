@@ -5,10 +5,11 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Middleware
+// Middleware (post request)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// static folder
 app.use(express.static("public"));
 
 // const htmlRoutes = require("./routes/html-routes");
@@ -19,12 +20,6 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
-
-// Routes
-
-app.get("/", (req, res) => {
-    res.send(index.html);
-})
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
