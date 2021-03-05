@@ -41,6 +41,16 @@ const WorkoutSchema = new Schema ({
     },
 });
 
+WorkoutSchema.methods.setDate = function() {
+    this.setDate = Date.now();
+    return this.setDate;
+};
+
+WorkoutSchema.methods.getDate = function() {
+    this.getDate = this.day;
+    return this.getDate;
+}
+
 const Workout = mongoose.model("Workout", WorkoutSchema);
 
 module.exports = Workout;
