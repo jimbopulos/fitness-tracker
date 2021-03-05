@@ -42,18 +42,18 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
 // ] )
 
 app.get("/api/workouts", (req, res) => {
-  db.Workout.aggregate( [
-    { 
-    $addFields: {
-    totalWorkoutDuration: { $sum: "$duration" }
-    }
-  },
-  {
-    $addFields: { totalWorkout: 
-    { $add: [ "$totalWorkoutDuration" ] }
-    }
-  }
- ] );
+//   db.Workout.aggregate( [
+//     { 
+//     $addFields: {
+//     totalWorkoutDuration: { $sum: "$duration" }
+//     }
+//   },
+//   {
+//     $addFields: { totalWorkout: 
+//     { $add: [ "$totalWorkoutDuration" ] }
+//     }
+//   }
+//  ] );
   db.Workout.find({}, (err, data) => {
     if (err) {
       console.log(err);
