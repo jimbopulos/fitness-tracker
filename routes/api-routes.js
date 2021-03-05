@@ -6,7 +6,7 @@ Router.get("/api/workouts", async (req, res) => {
       const workouts = await db.Workout.aggregate([
         { 
         $addFields: {
-        totalDuration: { $sum: "$exercises.duration" }
+            totalDuration: { $sum: "$exercises.duration" }
         },
       },
      ])
@@ -14,10 +14,22 @@ Router.get("/api/workouts", async (req, res) => {
     } catch (err) {
       throw new Error(err);
     }
-  });
+});
 
-Router.get("/api/someRoute", (req, res) => {
-    res.send("Work pls");
+Router.get("/api/workouts/range", async (req, res) => {
+    try {
+      const stats = await db.Workout.aggregate([
+        { 
+        $addFields: {
+            totalDuration: { $sum: "$exercises.duration" },
+            totalWeight: { $sum: "$exercises.weight" }
+        },
+      },
+     ])
+     res.send(stats);
+    } catch (err) {
+      throw new Error(err);
+    }
 });
 
 module.exports = Router;
