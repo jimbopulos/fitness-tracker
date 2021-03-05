@@ -2,10 +2,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
-require("./routes/html-routes");
-require("./routes/api-routes");
+// require("./routes/html-routes");
+// require("./routes/api-routes");
 
-const Workout = require("./models");
+const Workout = require("./models/Workout");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // connect to mongoose
-const db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
@@ -28,7 +28,7 @@ const db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/work
 // READ
 // route to get all workouts
 app.get("/api/workouts", (req, res) => {
-  db.workout.find({}, (err, data) => {
+  Workout.find({}, (err, data) => {
     if (err) {
       console.log(err);
     } else {
