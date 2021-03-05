@@ -2,6 +2,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+require("./routes/html-routes");
+require("./routes/api-routes");
+
+const Workout = require("./models");
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -12,14 +17,31 @@ app.use(express.json());
 // static folder
 app.use(express.static("public"));
 
-// const htmlRoutes = require("./routes/html-routes");
-// const apiRoutes = require("./routes/api-routes");
-
 // connect to mongoose
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
+const db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
+
+// CREATE
+
+// READ
+// route to get all workouts
+app.get("/api/workouts", (req, res) => {
+  db.workout.find({}, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(data);
+    };
+  }); 
+});
+
+// route to retrieve last workout
+
+// UPDATE
+
+// DELETE
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
