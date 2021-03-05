@@ -2,10 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
-// require("./routes/html-routes");
-// require("./routes/api-routes");
-
-const db = require("./models");
+// const db = require("./models");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -23,45 +20,38 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useFindAndModify: false
 });
 
+app.use(require("./routes/html-routes"));
+app.use(require("./routes/api-routes"));
+
 // CREATE
 
 // READ
-// route to retrieve last workout
-
-// db.scores.aggregate( [
-//   {
-//     $addFields: {
-//       totalHomework: { $sum: "$homework" } ,
-//       totalQuiz: { $sum: "$quiz" }
-//     }
-//   },
-//   {
-//     $addFields: { totalScore:
-//       { $add: [ "$totalHomework", "$totalQuiz", "$extraCredit" ] } }
-//   }
-// ] )
-
-app.get("/api/workouts", (req, res) => {
+// // route to retrieve last workout
+// app.get("/api/workouts", (req, res) => {
 //   db.Workout.aggregate( [
 //     { 
 //     $addFields: {
-//     totalWorkoutDuration: { $sum: "$duration" }
+//     totalDuration: { $sum: "$exercises.duration" }
 //     }
 //   },
-//   {
-//     $addFields: { totalWorkout: 
-//     { $add: [ "$totalWorkoutDuration" ] }
-//     }
+//  ] ).then(data => res.json(data));
+// });
+
+// // route to retrieve last workout
+// app.get("/api/workouts", async (req, res) => {
+//   try {
+//     const workouts = await db.Workout.aggregate([
+//       { 
+//       $addFields: {
+//       totalDuration: { $sum: "$exercises.duration" }
+//       },
+//     },
+//    ])
+//    res.send(workouts);
+//   } catch (err) {
+//     throw new Error(err);
 //   }
-//  ] );
-  db.Workout.find({}, (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(data);
-    };
-  }); 
-});
+// });
 
 // UPDATE
 

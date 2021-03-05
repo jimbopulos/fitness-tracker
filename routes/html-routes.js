@@ -1,16 +1,18 @@
-// const Router = require("express").Router();
+const path = require("path");
+const Router = require("express").Router();
+// require("../public/exercise")
 
-// // We techincally don't need this (server static find 'public' dir), but hey, here it is
-// Router.get("/", (req, res) => {
-//     res.render(index.html);
-//   });
+// Routes to display html
+Router.get("/exercise", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/exercise.html"));
+  });
 
-//   // Router.get("/exercise?", (req, res) => {
-//   //   res.render(exercise.html);
-//   // });
+// Router.get("/exercise?", (req, res) => {
+//   res.send(exercise.html);
+// });  
 
-//   Router.get("/exercise", (req, res) => {
-//     res.render(exercise.html);
-//   });
+// Router.get("/exercise", (req, res) => {
+//     res.send(path.join(__dirname, "public"));
+// });
 
-// module.exports = Router;
+module.exports = Router;
