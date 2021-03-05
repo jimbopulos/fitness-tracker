@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 // require("./routes/html-routes");
 // require("./routes/api-routes");
 
-const Workout = require("./models/Workout");
+const db = require("./models");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -26,9 +26,35 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
 // CREATE
 
 // READ
-// route to get all workouts
+// route to retrieve last workout
+
+// db.scores.aggregate( [
+//   {
+//     $addFields: {
+//       totalHomework: { $sum: "$homework" } ,
+//       totalQuiz: { $sum: "$quiz" }
+//     }
+//   },
+//   {
+//     $addFields: { totalScore:
+//       { $add: [ "$totalHomework", "$totalQuiz", "$extraCredit" ] } }
+//   }
+// ] )
+
 app.get("/api/workouts", (req, res) => {
-  Workout.find({}, (err, data) => {
+  db.Workout.aggregate( [
+    { 
+    $addFields: {
+    totalWorkoutDuration: { $sum: "$duration" }
+    }
+  },
+  {
+    $addFields: { totalWorkout: 
+    { $add: [ "$totalWorkoutDuration" ] }
+    }
+  }
+ ] );
+  db.Workout.find({}, (err, data) => {
     if (err) {
       console.log(err);
     } else {
@@ -36,8 +62,6 @@ app.get("/api/workouts", (req, res) => {
     };
   }); 
 });
-
-// route to retrieve last workout
 
 // UPDATE
 
