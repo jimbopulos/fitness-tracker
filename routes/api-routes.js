@@ -7,9 +7,8 @@ const db = require("../models");
 //   try {
 //     const newWorkout = await db.Workout.create({});
 //     res.json(newWorkout);
-//     //console.log(newExercise);
 //   } catch (err) {
-//       throw new Error(err);
+//     throw new Error(err);
 //   };
 // });
 
@@ -32,20 +31,20 @@ const db = require("../models");
 
 // // get stats from workout
 // Router.get("/api/workouts/range", async (req, res) => {
-//     try {
-//       const stats = await db.Workout.aggregate([
-//         { 
-//             $addFields: {
-//                 totalDuration: { $sum: "$exercises.duration" },
-//                 totalWeight: { $sum: "$exercises.weight" }
-//             },
-//         },
-//         { $limit: 7 }
-//       ])
-//       res.json(stats);
-//     } catch (err) {
-//       throw new Error(err);
-//     };
+//   try {
+//     const stats = await db.Workout.aggregate([
+//       { 
+//           $addFields: {
+//               totalDuration: { $sum: "$exercises.duration" },
+//               totalWeight: { $sum: "$exercises.weight" }
+//           },
+//       },
+//       { $limit: 7 }
+//     ])
+//     res.json(stats);
+//   } catch (err) {
+//     throw new Error(err);
+//   };
 // });
 
 // // UPDATE
@@ -65,10 +64,10 @@ const db = require("../models");
 // CREATE
 // create a workout
 Router.post("/api/workouts", (req, res) => {
-  db.Workout.create({}).then(workout => {
+  db.Workout.create({}).then((workout) => {
     res.json(workout);
   })
-  .catch(err => {
+  .catch((err) => {
     res.json(err);
   });
 });
@@ -83,10 +82,10 @@ Router.get("/api/workouts", (req, res) => {
     },
   },
   ])
-  .then(workout => {
+  .then((workout) => {
     res.json(workout);
   })
-  .catch(err => {
+  .catch((err) => {
     res.json(err);
   });
 });
@@ -98,14 +97,14 @@ Router.get("/api/workouts/range", (req, res) => {
     $addFields: {
         totalDuration: { $sum: "$exercises.duration" },
         totalWeight: { $sum: "$exercises.weight" }
-    },
+    }
   },
   { $limit: 7 }
   ])
-  .then(stats => {
+  .then((stats) => {
     res.json(stats)
   })
-  .catch (err => {
+  .catch ((err) => {
     res.json(err);
   });
 });
@@ -113,13 +112,11 @@ Router.get("/api/workouts/range", (req, res) => {
 // UPDATE
 // continue a workout
 Router.put("/api/workouts/:id", (req, res) => {
-  console.log(req.body);
-  let { id } = req.params;
-  db.Workout.findByIdAndUpdate(id, { $push: { exercises: req.body } }, { new: true })
-  .then(workout => {
+  db.Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } }, { new: true })
+  .then((workout) => {
     res.json(workout);
   })
-  .catch (err => {
+  .catch ((err) => {
     res.json(err);
   });
 });

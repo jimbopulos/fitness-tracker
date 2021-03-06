@@ -30,34 +30,23 @@ const WorkoutSchema = new Schema ({
         },
         {
             weight: {
-                type: Number,
-                required: "Please enter a weight amount"
+                type: Number
             }
         },
         {
             reps: {
-                type: Number,
-                required: "Please enter a repetition count"
+                type: Number
             }
         },
         {
             sets: {
-                type: Number,
-                required: "Please enter a set count"
+                type: Number
             }
         },
         {
             distance: {
-                type: Number,
-                required: "Please enter a distance",
-                validate: [({ distance }) => distance > 0, "Distance must have a value greater than 0"]
+                type: Number
             }
-        },
-        {
-            totalDuration: Number
-        },
-        {
-            totalWeight: Number
         }
     ] 
 });
