@@ -1,66 +1,6 @@
 const Router = require("express").Router();
 const db = require("../models");
 
-// // CREATE
-// // create a workout
-// Router.post("/api/workouts", async (req, res) => {
-//   try {
-//     const newWorkout = await db.Workout.create({});
-//     res.json(newWorkout);
-//   } catch (err) {
-//     throw new Error(err);
-//   };
-// });
-
-// // READ
-// // get last workout
-// Router.get("/api/workouts", async (req, res) => {
-//     try {
-//       const workouts = await db.Workout.aggregate([
-//         { 
-//         $addFields: {
-//             totalDuration: { $sum: "$exercises.duration" }
-//         },
-//       },
-//       ])
-//       res.json(workouts);
-//     } catch (err) {
-//       throw new Error(err);
-//     };
-// });
-
-// // get stats from workout
-// Router.get("/api/workouts/range", async (req, res) => {
-//   try {
-//     const stats = await db.Workout.aggregate([
-//       { 
-//           $addFields: {
-//               totalDuration: { $sum: "$exercises.duration" },
-//               totalWeight: { $sum: "$exercises.weight" }
-//           },
-//       },
-//       { $limit: 7 }
-//     ])
-//     res.json(stats);
-//   } catch (err) {
-//     throw new Error(err);
-//   };
-// });
-
-// // UPDATE
-// // continue a workout
-// Router.put("/api/workouts/:id", async (req, res) => {
-//   try {
-//     console.log(req.body);
-//     let { id } = req.params;
-//     const updatedExercise = await db.Workout.findByIdAndUpdate(id, { $push: { exercises: req.body } }, { new: true });
-//     res.json(updatedExercise);
-//     //console.log(newExercise);
-//   } catch (err) {
-//       throw new Error(err);
-//   };
-// });
-
 // CREATE
 // create a workout
 Router.post("/api/workouts", (req, res) => {
