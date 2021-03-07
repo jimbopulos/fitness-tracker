@@ -4,10 +4,10 @@ const db = require("../models");
 // CREATE
 // create a workout
 Router.post("/api/workouts", (req, res) => {
-  db.Workout.create({}).then((workout) => {
+  db.Workout.create({}).then(workout => {
     res.json(workout);
   })
-  .catch((err) => {
+  .catch(err => {
     res.json(err);
   });
 });
@@ -22,10 +22,10 @@ Router.get("/api/workouts", (req, res) => {
     },
   },
   ])
-  .then((workout) => {
+  .then(workout => {
     res.json(workout);
   })
-  .catch((err) => {
+  .catch(err => {
     res.json(err);
   });
 });
@@ -41,10 +41,10 @@ Router.get("/api/workouts/range", (req, res) => {
   },
   { $limit: 7 }
   ])
-  .then((stats) => {
+  .then(stats => {
     res.json(stats)
   })
-  .catch ((err) => {
+  .catch (err => {
     res.json(err);
   });
 });
@@ -53,10 +53,10 @@ Router.get("/api/workouts/range", (req, res) => {
 // continue a workout
 Router.put("/api/workouts/:id", (req, res) => {
   db.Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } }, { new: true })
-  .then((workout) => {
+  .then(workout => {
     res.json(workout);
   })
-  .catch ((err) => {
+  .catch (err => {
     res.json(err);
   });
 });
